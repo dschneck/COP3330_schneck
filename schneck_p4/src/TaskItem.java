@@ -1,7 +1,7 @@
 public class TaskItem {
 	private String title;
 	private String description;
-	private int date[];
+	private int [] date;
 	private boolean completed;
 
 	public TaskItem(String title, String description, int [] date) {
@@ -23,7 +23,7 @@ public class TaskItem {
 	public String getDescription() {return this.description;}
 	public boolean isCompleted() {return this.completed;}
 
-	public void printDate(){System.out.print("[" + Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day) + "]");}
+	public void printDate() {System.out.print("[" + Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day) + "]");}
 
 	// Setters
 	public void setTitle(String newTitle) {} // TODO

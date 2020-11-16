@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class App {
 	public static Scanner scanner = new Scanner(System.in);
-	//public TaskList taskList = new TaskList();
+	public TaskList taskList = new TaskList();
 
 	public static void main(String[] args) {	
 		int ListOperationInput;
@@ -36,35 +36,49 @@ public class App {
 									String description = scanner.nextLine();
 									
 									System.out.println("Task due date (YYYY-MM-DD): ");
-									int date[]  = readDate();
+									int [] date  = readDate();
 									taskList.addTask(title, description, date);
 
 									break;
 								case 3: // Edit an item
+									System.out.println("Which task will you edit? ");
+									int index = scanner.nextInt();
 
 									System.out.println("Enter a new title for task " + ": ");
-
+									String title = scanner.nextLine();
 
 									System.out.println("Enter a new description for task " + ": ");
-
+									String description = scanner.nextLine();
 
 									System.out.println("Enter a new task due date (YYYY-MM-DD) for task " + ": ");
+									int [] date = readDate();
+									taskList.editTask(index, title, description, date);
+
 									break;
 								case 4: // Remove an item
-
-
 									System.out.println("Which task will you remove? ");
-									tasklist.remove(task);
+									int index = scanner.nextInt();
+
+									tasklist.removeTask(index);
+
 									break;
-								case 5: // Mark an item as completed
+								case 5: // Mark an item as uncompleted
 									System.out.println("Uncompleted Tasks\n--------\n\n");
 									tasklist.printUncompleted();
-									tasklist.toggleCompleted(task);
+									System.out.println("Which task will you mark as completed? ");
+
+									int index = scanner.nextLine();
+									tasklist.toggleCompleted(index);
+
 									break;
 								case 6: // Unmark an item as completed
 									System.out.println("Completed Tasks\n--------\n\n");
 									tasklist.printCompleted();
+									System.out.println("Which task will you unmark as completed? ");
+
+									int index = scanner.nextInt();
 									tasklist.toggleCompleted(task);
+
 									break;
 								case 7: // Save the current list
 									System.out.println("Enter the filename to save as: ");
@@ -125,7 +139,7 @@ public class App {
 	}
 
 	private static void loadFile(String filename) {
-				
+						
 	}
 
 	private static int [] readDate() {

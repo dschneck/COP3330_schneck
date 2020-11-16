@@ -8,15 +8,17 @@ public class TaskList {
 		ArrayList<TaskItem> tasks  = new ArrayList<TaskItem>();
 	}
 
-	public void  addTask(String description, String title, int [] date) { 
+	public void addTask(String description, String title, int [] date) { 
 		TaskItem task = new TaskItem(description, title, date);
 
 		taskList.add(task);
 
 	}
 	
-	public void removeTask(TaskItem toRemove) {
+	public void removeTask(int index) {
+		tasks.remove(index);
 	}
+
 	// TODO: decide how I want to format the input file
 	public loadTaskList() {
 		
@@ -53,9 +55,9 @@ public class TaskList {
 	}
 
 
-	public void toggleCompleted(TaskItem task) {
+	public void toggleCompleted(int index) {
 		// TODO decide om search algorithm to find pos
-		tasks.get(pos).toggleCompleted();
+		tasks.get(index).toggleCompleted();
 	}
 
 }
