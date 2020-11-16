@@ -4,12 +4,14 @@ public class TaskList {
 	
 	
 	// Constructor
-	public TaskList() {
-		ArrayList<TaskItem> tasks  = new ArrayList<>();
+	public TaskList(TaskItem initial) { // The task list can be empty
+		ArrayList<TaskItem> tasks  = new ArrayList<TaskItem>();
 	}
 
-	public void  addTask(TaskItem toAdd) { // maybe it should be a reference
+	public void  addTask(String description, String title, int [] date) { 
+		TaskItem task = new TaskItem(description, title, date);
 
+		taskList.add(task);
 
 	}
 	
@@ -19,8 +21,41 @@ public class TaskList {
 	public loadTaskList() {
 		
 	}
-
 	
+	public void printList() {
+		for (int i = 0; i < tasks.size(); i++) {
+			System.out.print(i +") ");
+			tasks.get(i).printDate();
+			System.out.print(" " + task.get(i).getTitle() + " " + tasks.get(i).getDescription() + "\n");
+		}
+	}
+	public void printCompleted() 
+		for (int i = 0; i < tasks.size(); i++) {
+			if (tasks.get(i).isCompleted()) {
+				System.out.print(i +") ");
+				tasks.get(i).printDate();
+				System.out.print(" " + task.get(i).getTitle() + " " + tasks.get(i).getDescription() + "\n");
+			}
 
+			else continue;
+		}
+	}
+
+	public void printUncompleted() {
+		for (int i = 0; i < tasks.size(); i++) {
+			if (!tasks.get(i).isCompleted()) {
+				System.out.print(i +") ");
+				tasks.get(i).printDate();
+				System.out.print(" " + task.get(i).getTitle() + " " + tasks.get(i).getDescription() + "\n");
+			}
+			else continue;
+		}
+	}
+
+
+	public void toggleCompleted(TaskItem task) {
+		// TODO decide om search algorithm to find pos
+		tasks.get(pos).toggleCompleted();
+	}
 
 }
