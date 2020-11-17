@@ -28,7 +28,7 @@ public class TaskList {
 	public void printList() {
 		for (int i = 0; i < tasks.size(); i++) {
 			if ((tasks.get(i).isCompleted())) {
-				System.out.print(i + ") ***");
+				System.out.print(i + ") *** ");
 			} else {
 				System.out.print(i + ") ");
 			}
@@ -36,8 +36,10 @@ public class TaskList {
 			tasks.get(i).printDate();
 			System.out.print(" " + tasks.get(i).getTitle() + " " + tasks.get(i).getDescription() + "\n");
 		}
+		System.out.print("\n");
 	}
 	public void printCompleted() {
+		System.out.print("\n");
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).isCompleted()) {
 				System.out.print(i +") ");
@@ -45,17 +47,19 @@ public class TaskList {
 				System.out.print(" " + tasks.get(i).getTitle() + " " + tasks.get(i).getDescription() + "\n");
 			}
 		}
+		System.out.print("\n");
 	}
 
 	public void printUncompleted() {
+		System.out.print("\n");
 		for (int i = 0; i < tasks.size(); i++) {
 			if (!tasks.get(i).isCompleted()) {
 				System.out.print(i +") ");
 				tasks.get(i).printDate();
 				System.out.print(" " + tasks.get(i).getTitle() + " " + tasks.get(i).getDescription() + "\n");
 			}
-
 		}
+		System.out.print("\n");
 	}
 
 	public void toggleCompleted(int index) {tasks.get(index).toggleCompleted();}

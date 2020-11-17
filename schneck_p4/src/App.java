@@ -14,131 +14,144 @@ public class App {
 		int [] date;
 		String filename = new String(), title = new String(), description = new String();
 
-		printMainMenu();
-		mainMenuInput = scanner.nextInt();
-	
+		boolean mainIsFinished = false, validTask = false;
+		do {
+			try {
+				printMainMenu();
+				mainMenuInput = scanner.nextInt();
+				scanner.nextLine();
+				mainIsFinished = true;
 
-		while(mainMenuInput != 3 ) {
-			switch(mainMenuInput) {
-				case 1:
-					System.out.println("new task list has been created\n\n");
-					printListOperations();
-					try {
-						ListOperationInput = scanner.nextInt();
-						scanner.nextLine();
-						while(ListOperationInput != 8) {
-							switch(ListOperationInput) {
-								case 1: // View the list
-									taskList.printList();
-									break;
-								case 2: // Add an item
 
-										try {
-											System.out.print("Task title: ");
+				while (mainMenuInput != 3) {
+					mainIsFinished = false;
+					switch (mainMenuInput) {
+						case 1:
+							System.out.println("new task list has been created\n\n");
+							printListOperations();
+							try {
+								ListOperationInput = scanner.nextInt();
+								scanner.nextLine();
+								while (ListOperationInput != 8) {
+									switch (ListOperationInput) {
+										case 1: // View the list
+											taskList.printList();
+											break;
+										case 2: // Add an item
+
+											try {
+												System.out.print("Task title: ");
+												title = scanner.nextLine();
+											} catch (InputMismatchException e) {
+												e.printStackTrace();
+											}
+
+											try {
+												System.out.print("Task description: ");
+												description = scanner.nextLine();
+
+											} catch (InputMismatchException e) {
+												e.printStackTrace();
+											}
+
+											try {
+												System.out.print("Task due date (YYYY-MM-DD): ");
+												date = readDate();
+												taskList.addTask(title, description, date);
+											} catch (Exception e) {
+												System.err.println((e));
+											}
+											break;
+										case 3: // Edit an item
+											System.out.println("Which task will you edit? ");
+											index = scanner.nextInt();
+
+											System.out.println("Enter a new title for task " + ": ");
 											title = scanner.nextLine();
-										} catch (InputMismatchException e) {
-											e.printStackTrace();
-										}
 
-										try {
-											System.out.print("Task description: ");
+											System.out.println("Enter a new description for task " + ": ");
 											description = scanner.nextLine();
 
-										} catch (InputMismatchException e) {
-											e.printStackTrace();
-										}
-
-										try {
-											System.out.print("Task due date (YYYY-MM-DD): ");
+											System.out.println("Enter a new task due date (YYYY-MM-DD) for task " + ": ");
 											date = readDate();
-											taskList.addTask(title, description, date);
-										} catch (Exception e) {
-											System.err.println((e));
-										}
-									break;
-								case 3: // Edit an item
-									System.out.println("Which task will you edit? ");
-									index = scanner.nextInt();
+											taskList.editTask(index, title, description, date);
 
-									System.out.println("Enter a new title for task " + ": ");
-									title = scanner.nextLine();
+											break;
+										case 4: // Remove an item
+											System.out.println("Which task will you remove? ");
+											index = scanner.nextInt();
 
-									System.out.println("Enter a new description for task " + ": ");
-									description = scanner.nextLine();
+											taskList.removeTask(index);
 
-									System.out.println("Enter a new task due date (YYYY-MM-DD) for task " + ": ");
-									date = readDate();
-									taskList.editTask(index, title, description, date);
+											break;
+										case 5: // Mark an item as uncompleted
+											System.out.println("Uncompleted Tasks\n--------\n\n");
+											taskList.printUncompleted();
+											System.out.println("Which task will you mark as completed? ");
 
-									break;
-								case 4: // Remove an item
-									System.out.println("Which task will you remove? ");
-									index = scanner.nextInt();
+											index = scanner.nextInt();
+											taskList.toggleCompleted(index);
 
-									taskList.removeTask(index);
+											break;
+										case 6: // Unmark an item as completed
+											System.out.println("Completed Tasks\n--------\n\n");
+											taskList.printCompleted();
+											System.out.println("Which task will you unmark as completed? ");
 
-									break;
-								case 5: // Mark an item as uncompleted
-									System.out.println("Uncompleted Tasks\n--------\n\n");
-									taskList.printUncompleted();
-									System.out.println("Which task will you mark as completed? ");
+											index = scanner.nextInt();
+											taskList.toggleCompleted(index);
 
-									index = scanner.nextInt();
-									taskList.toggleCompleted(index);
+											break;
+										case 7: // Save the current list
+											System.out.println("Enter the filename to save as: ");
+											filename = scanner.nextLine();
+											saveFile(filename);
+											System.out.println("task list has been saved");
 
-									break;
-								case 6: // Unmark an item as completed
-									System.out.println("Completed Tasks\n--------\n\n");
-									taskList.printCompleted();
-									System.out.println("Which task will you unmark as completed? ");
+											break;
+										default: // Error
+											System.out.println("Please use a number 1 to 8 (inclusive)");
+											break;
 
-									index = scanner.nextInt();
-									taskList.toggleCompleted(index);
+									}
 
-									break;
-								case 7: // Save the current list
-									System.out.println("Enter the filename to save as: ");
-									filename = scanner.nextLine();
-									saveFile(filename);
-									System.out.println("task list has been saved");
+									printListOperations();
+									ListOperationInput = scanner.nextInt();
+									scanner.nextLine();
+								}
 
-									break;
-								default: // Error
-									System.out.println("Please use a number 1 to 8 (inclusive)");
-									break;
-							
+							} catch (Exception e) {
+								System.err.println(e);
+								System.err.println("Input was not an integer from 1 to 7.\n Try again.");
 							}
+							printMainMenu();
+							break;
 
-							printListOperations();
-							ListOperationInput = scanner.nextInt();
-							scanner.nextLine();
-						}
-
-					} catch(Exception e) {
-						System.err.println(e);
-						System.err.println("Input was not an integer from 1 to 7.\n Try again.");
+						case 2:
+							System.out.println("Enter the filename to load: ");
+							filename = scanner.nextLine();
+							loadFile(filename);
+							System.out.println(filename + " has been loaded\n");
+							break;
+						default:
+							System.out.println("Please use a number from 1 to 3 (inclusive)");
+							break;
 					}
-					printMainMenu();
-					break;
 
-				case 2: 
-					System.out.println("Enter the filename to load: ");
-					filename = scanner.nextLine();
-					loadFile(filename);
-					System.out.println(filename + " has been loaded\n");
-					break;
-				default:
-					System.out.println("Please use a number 1 to 3 (inclusive)");
-					break;
-			} 
-			
-			if (mainMenuInput == 2) {
-				mainMenuInput = 1;
-				continue;
+					if (mainMenuInput == 2) {
+						mainMenuInput = 1;
+						continue;
+					} else mainMenuInput = scanner.nextInt();
+
+				}
+			} catch (InputMismatchException e) {
+				System.err.println(e);
+				System.out.println("Please use a number from 1 to 3 (inclusive)");
+
+				scanner.nextLine();
 			}
-			else mainMenuInput = scanner.nextInt();
 
-		}
+		} while(!mainIsFinished);
 	}
 
 	private static void printMainMenu() { 
@@ -175,12 +188,25 @@ public class App {
 
 	private static int [] readDate() {
 		int [] date = new int[3];
-		String line = scanner.nextLine();
-		String[] values = line.split("-");
+		boolean receivedInput = false;
+		do {
+			try {
+				String line = scanner.nextLine();
+				String[] values = line.split("-");
 
-		date[0] = Integer.parseInt(values[0]);
-		date[1] = Integer.parseInt(values[1]);
-		date[2] = Integer.parseInt(values[2]);
+				receivedInput = true;
+
+				date[0] = Integer.parseInt(values[0]);
+				date[1] = Integer.parseInt(values[1]);
+				date[2] = Integer.parseInt(values[2]);
+			} catch (InputMismatchException e) {
+				System.err.println(e);
+			}
+
+
+		} while(!receivedInput);
+
+
 		/*
 		try {
 			date[0]  = scanner.nextInt();
