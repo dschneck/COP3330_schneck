@@ -1,4 +1,6 @@
-import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.File;
+import java.net.URL;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 //import java.util.Exceptions.*;
@@ -10,7 +12,7 @@ public class App {
 	public static void main(String[] args) {	
 		int ListOperationInput, mainMenuInput, index;
 		int [] date;
-		String filename, title, description;
+		String filename = new String(), title = new String(), description = new String();
 
 		printMainMenu();
 		mainMenuInput = scanner.nextInt();
@@ -23,23 +25,36 @@ public class App {
 					printListOperations();
 					try {
 						ListOperationInput = scanner.nextInt();
+						scanner.nextLine();
 						while(ListOperationInput != 8) {
-							ListOperationInput = scanner.nextInt();
 							switch(ListOperationInput) {
 								case 1: // View the list
 									taskList.printList();
 									break;
 								case 2: // Add an item
-									System.out.println("Task title: ");
-									title = scanner.nextLine();
 
-									System.out.println("Task description: ");
-									description = scanner.nextLine();
-									
-									System.out.println("Task due date (YYYY-MM-DD): ");
-									date  = readDate();
-									taskList.addTask(title, description, date);
+										try {
+											System.out.print("Task title: ");
+											title = scanner.nextLine();
+										} catch (InputMismatchException e) {
+											e.printStackTrace();
+										}
 
+										try {
+											System.out.print("Task description: ");
+											description = scanner.nextLine();
+
+										} catch (InputMismatchException e) {
+											e.printStackTrace();
+										}
+
+										try {
+											System.out.print("Task due date (YYYY-MM-DD): ");
+											date = readDate();
+											taskList.addTask(title, description, date);
+										} catch (Exception e) {
+											System.err.println((e));
+										}
 									break;
 								case 3: // Edit an item
 									System.out.println("Which task will you edit? ");
@@ -83,7 +98,8 @@ public class App {
 									break;
 								case 7: // Save the current list
 									System.out.println("Enter the filename to save as: ");
-									saveAsFile();
+									filename = scanner.nextLine();
+									saveFile(filename);
 									System.out.println("task list has been saved");
 
 									break;
@@ -92,15 +108,19 @@ public class App {
 									break;
 							
 							}
+
+							printListOperations();
+							ListOperationInput = scanner.nextInt();
+							scanner.nextLine();
 						}
 
 					} catch(Exception e) {
 						System.err.println(e);
 						System.err.println("Input was not an integer from 1 to 7.\n Try again.");
 					}
-
 					printMainMenu();
 					break;
+
 				case 2: 
 					System.out.println("Enter the filename to load: ");
 					filename = scanner.nextLine();
@@ -119,15 +139,7 @@ public class App {
 			else mainMenuInput = scanner.nextInt();
 
 		}
-
-
-		
-
-		
-
 	}
-
-
 
 	private static void printMainMenu() { 
 		System.out.println("Main Menu\n--------\n\n1) create a new list\n2) load an existing list\n3) quit\n");
@@ -136,20 +148,40 @@ public class App {
 
 	private static void printListOperations() {
 		System.out.println("List Operations Task\n--------\n\n1) view the list\n2) add an item \n3) edit an item \n4) remove item\n5) mark an item as completed\n6) unmark an item as completed\n7) save the current list\n8) quit to the main menu\n");
-		System.out.println("> ");
+		System.out.print("> ");
 	}
 
 	private static void loadFile(String filename) {
-		//FileReader
+		URL path = App.class.getResource(filename);
+		File file = new File(path.getFile());
+
+		try (Scanner input = new Scanner(file)) {
+			int numTask = input.nextInt();
+
+			while (input.hasNextLine()) {
+				String line = input.nextLine();
+				System.out.println(line);
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
-	private static void saveAsFile(String filename) {
+	private static void saveFile(String filename) {
+		File file = new File(filename);
+
 	}
 
 	private static int [] readDate() {
-	//	int year = 0, month = 0, day = 0;
-		int date[] = new int[3];
+		int [] date = new int[3];
+		String line = scanner.nextLine();
+		String[] values = line.split("-");
 
+		date[0] = Integer.parseInt(values[0]);
+		date[1] = Integer.parseInt(values[1]);
+		date[2] = Integer.parseInt(values[2]);
+		/*
 		try {
 			date[0]  = scanner.nextInt();
 			scanner.skip("-");
@@ -159,13 +191,21 @@ public class App {
 
 			date[2] = scanner.nextInt();
 			scanner.skip("-");
+
+			scanner.nextLine();
 		}
 		catch(InputMismatchException e) {
 			System.err.println(e);
-			System.err.println("yuh");
+			System.err.println("Please enter a new task due date in the following format: YYYY-MM-DD");
 		}
 
+		 */
+
 	//	System.out.print(Integer.toString(year) + " " + Integer.toString(month) + " " + Integer.toString(day));
+		//finally {
+		//	return date;
+		//}
+
 		return date;
 	}
 }
