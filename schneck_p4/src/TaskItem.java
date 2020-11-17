@@ -21,6 +21,10 @@ public class TaskItem {
 	// Getters
 	public String getTitle() {return this.title;}
 	public String getDescription() {return this.description;}
+	public String getDateString() {
+		return Integer.toString(date[0]) + "-" + Integer.toString(date[1]) + "-" + Integer.toString(date[2]);
+	}
+
 	public boolean isCompleted() {return this.completed;}
 
 	public void printDate() {System.out.print("[" + Integer.toString(date[0]) + "-" + Integer.toString(date[1]) + "-" + Integer.toString(date[2]) + "]");}

@@ -6,10 +6,14 @@ public class TaskList {
 	// Constructor
 	public TaskList() {tasks = new ArrayList<>();} // The list starts empty
 
+	public int getSize() {return tasks.size();}
+
 	public void addTask(String description, String title, int [] date) { 
 		TaskItem task = new TaskItem(description, title, date);
 		tasks.add(task);
 	}
+
+	public void addTaskFromFile(TaskItem task) {tasks.add(task);}
 	
 	public void removeTask(int index) {tasks.remove(index);}
 
@@ -28,7 +32,7 @@ public class TaskList {
 	public void printList() {
 		for (int i = 0; i < tasks.size(); i++) {
 			if ((tasks.get(i).isCompleted())) {
-				System.out.print(i + ") *** ");
+				System.out.print("\n"+ i + ") *** ");
 			} else {
 				System.out.print(i + ") ");
 			}
@@ -60,6 +64,18 @@ public class TaskList {
 			}
 		}
 		System.out.print("\n");
+	}
+
+	public String [] getTask(int index) {
+		String [] task = new String[4];
+
+		task[0] = tasks.get(index).getDateString(); //tasks.get(index).getTitle();
+		task[1] = tasks.get(index).getTitle(); //tasks.get(index).getDescription();
+		task[2] = tasks.get(index).getDescription(); //tasks.get(index).getDateString();
+		task[3] = Boolean.toString(tasks.get(index).isCompleted());
+
+		return task;
+		//return tasks.get(index).getTaskString(index);
 	}
 
 	public void toggleCompleted(int index) {tasks.get(index).toggleCompleted();}
