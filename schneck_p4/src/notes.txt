@@ -1,0 +1,6 @@
+So in Junit testing there shouldnt be interaction with scanners. Just give the input to the function thast the scanner would be sending it to
+
+You can use the while(true) thing as long as you have a break; at the end of the try
+
+ invalid due date ; task not created
+ title must be atleast one chatactert long ; task not created`

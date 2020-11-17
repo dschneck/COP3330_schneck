@@ -58,7 +58,7 @@ public class App {
 
 											try {
 												System.out.print("Task due date (YYYY-MM-DD): ");
-												date = readDate();
+												date = readDate(scanner);
 												taskList.addTask(title, description, date);
 											} catch (Exception e) {
 												System.err.println((e));
@@ -75,7 +75,7 @@ public class App {
 											description = scanner.nextLine();
 
 											System.out.println("Enter a new task due date (YYYY-MM-DD) for task " + ": ");
-											date = readDate();
+											date = readDate(scanner);
 											taskList.editTask(index, title, description, date);
 
 											break;
@@ -246,12 +246,12 @@ public class App {
 
 	}
 
-	private static int [] readDate() {
+	private static int [] readDate(Scanner scan) {
 		int [] date = new int[3];
 		boolean isValidDate = false;
 		do {
 			try {
-				String line = scanner.nextLine();
+				String line = scan.nextLine();
 				String[] values = line.split("-");
 
 				date[0] = Integer.parseInt(values[0]);
@@ -259,9 +259,14 @@ public class App {
 				date[2] = Integer.parseInt(values[2]);
 
 				isValidDate = true;
-			} catch (InputMismatchException e) {
-				System.err.println(e + "\n");
+			} catch (InputMismatchException ie) {
+				ie.printStackTrace();
+				System.err.println(ie + "\n");
+			} catch(ArithmeticException ae) {
+				ae.printStackTrace();
+				System.err.println(ae + "\n");
 			}
+
 
 
 		} while(!isValidDate);

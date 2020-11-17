@@ -22,12 +22,6 @@ public class TaskList {
 		tasks.get(index).setTitle(title);
 		tasks.get(index).setDescription(description);
 	}
-
-
-	// TODO: decide how I want to format the input file
-	public void loadTaskList() {
-		
-	}
 	
 	public void printList() {
 		for (int i = 0; i < tasks.size(); i++) {
