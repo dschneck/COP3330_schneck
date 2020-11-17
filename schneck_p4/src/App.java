@@ -1,17 +1,19 @@
+import java.io.FileReader;
+import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.ArrayList;
 //import java.util.Exceptions.*;
 
 public class App {
 	public static Scanner scanner = new Scanner(System.in);
-	public TaskList taskList = new TaskList();
+	public static TaskList taskList = new TaskList();
 
 	public static void main(String[] args) {	
-		int ListOperationInput;
-		String filename;
+		int ListOperationInput, mainMenuInput, index;
+		int [] date;
+		String filename, title, description;
 
 		printMainMenu();
-		int mainMenuInput = scanner.nextInt();
+		mainMenuInput = scanner.nextInt();
 	
 
 		while(mainMenuInput != 3 ) {
@@ -21,63 +23,62 @@ public class App {
 					printListOperations();
 					try {
 						ListOperationInput = scanner.nextInt();
-
 						while(ListOperationInput != 8) {
 							ListOperationInput = scanner.nextInt();
 							switch(ListOperationInput) {
 								case 1: // View the list
-									tasklist.printList();
+									taskList.printList();
 									break;
 								case 2: // Add an item
 									System.out.println("Task title: ");
-									String title = scanner.nextLine();	
+									title = scanner.nextLine();
 
 									System.out.println("Task description: ");
-									String description = scanner.nextLine();
+									description = scanner.nextLine();
 									
 									System.out.println("Task due date (YYYY-MM-DD): ");
-									int [] date  = readDate();
+									date  = readDate();
 									taskList.addTask(title, description, date);
 
 									break;
 								case 3: // Edit an item
 									System.out.println("Which task will you edit? ");
-									int index = scanner.nextInt();
+									index = scanner.nextInt();
 
 									System.out.println("Enter a new title for task " + ": ");
-									String title = scanner.nextLine();
+									title = scanner.nextLine();
 
 									System.out.println("Enter a new description for task " + ": ");
-									String description = scanner.nextLine();
+									description = scanner.nextLine();
 
 									System.out.println("Enter a new task due date (YYYY-MM-DD) for task " + ": ");
-									int [] date = readDate();
+									date = readDate();
 									taskList.editTask(index, title, description, date);
 
 									break;
 								case 4: // Remove an item
 									System.out.println("Which task will you remove? ");
-									int index = scanner.nextInt();
+									index = scanner.nextInt();
 
-									tasklist.removeTask(index);
+									taskList.removeTask(index);
 
 									break;
 								case 5: // Mark an item as uncompleted
 									System.out.println("Uncompleted Tasks\n--------\n\n");
-									tasklist.printUncompleted();
+									taskList.printUncompleted();
 									System.out.println("Which task will you mark as completed? ");
 
-									int index = scanner.nextLine();
-									tasklist.toggleCompleted(index);
+									index = scanner.nextInt();
+									taskList.toggleCompleted(index);
 
 									break;
 								case 6: // Unmark an item as completed
 									System.out.println("Completed Tasks\n--------\n\n");
-									tasklist.printCompleted();
+									taskList.printCompleted();
 									System.out.println("Which task will you unmark as completed? ");
 
-									int index = scanner.nextInt();
-									tasklist.toggleCompleted(task);
+									index = scanner.nextInt();
+									taskList.toggleCompleted(index);
 
 									break;
 								case 7: // Save the current list
@@ -106,8 +107,6 @@ public class App {
 					loadFile(filename);
 					System.out.println(filename + " has been loaded\n");
 					break;
-				case 3: 
-					break;
 				default:
 					System.out.println("Please use a number 1 to 3 (inclusive)");
 					break;
@@ -128,6 +127,8 @@ public class App {
 
 	}
 
+
+
 	private static void printMainMenu() { 
 		System.out.println("Main Menu\n--------\n\n1) create a new list\n2) load an existing list\n3) quit\n");
 		System.out.print("> ");
@@ -139,7 +140,10 @@ public class App {
 	}
 
 	private static void loadFile(String filename) {
-						
+		//FileReader
+	}
+
+	private static void saveAsFile(String filename) {
 	}
 
 	private static int [] readDate() {

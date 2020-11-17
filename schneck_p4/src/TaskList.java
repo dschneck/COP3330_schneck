@@ -1,17 +1,17 @@
 import java.util.ArrayList; 
 
 public class TaskList {
-	
-	
+	public ArrayList<TaskItem> tasks;
+
 	// Constructor
-	public TaskList(TaskItem initial) { // The task list can be empty
-		ArrayList<TaskItem> tasks  = new ArrayList<TaskItem>();
+	public TaskList() { // The task list can be empty
+		tasks = new ArrayList<>();
 	}
 
 	public void addTask(String description, String title, int [] date) { 
 		TaskItem task = new TaskItem(description, title, date);
 
-		taskList.add(task);
+		tasks.add(task);
 
 	}
 	
@@ -19,8 +19,15 @@ public class TaskList {
 		tasks.remove(index);
 	}
 
+	public void editTask(int index, String title, String description, int [] date) { //index, title, description, date
+		tasks.get(index).setDate(date);
+		tasks.get(index).setTitle(title);
+		tasks.get(index).setDescription(description);
+	}
+
+
 	// TODO: decide how I want to format the input file
-	public loadTaskList() {
+	public void loadTaskList() {
 		
 	}
 	
@@ -28,18 +35,16 @@ public class TaskList {
 		for (int i = 0; i < tasks.size(); i++) {
 			System.out.print(i +") ");
 			tasks.get(i).printDate();
-			System.out.print(" " + task.get(i).getTitle() + " " + tasks.get(i).getDescription() + "\n");
+			System.out.print(" " + tasks.get(i).getTitle() + " " + tasks.get(i).getDescription() + "\n");
 		}
 	}
-	public void printCompleted() 
+	public void printCompleted() {
 		for (int i = 0; i < tasks.size(); i++) {
 			if (tasks.get(i).isCompleted()) {
 				System.out.print(i +") ");
 				tasks.get(i).printDate();
-				System.out.print(" " + task.get(i).getTitle() + " " + tasks.get(i).getDescription() + "\n");
+				System.out.print(" " + tasks.get(i).getTitle() + " " + tasks.get(i).getDescription() + "\n");
 			}
-
-			else continue;
 		}
 	}
 
@@ -48,15 +53,14 @@ public class TaskList {
 			if (!tasks.get(i).isCompleted()) {
 				System.out.print(i +") ");
 				tasks.get(i).printDate();
-				System.out.print(" " + task.get(i).getTitle() + " " + tasks.get(i).getDescription() + "\n");
+				System.out.print(" " + tasks.get(i).getTitle() + " " + tasks.get(i).getDescription() + "\n");
 			}
-			else continue;
+
 		}
 	}
 
 
 	public void toggleCompleted(int index) {
-		// TODO decide om search algorithm to find pos
 		tasks.get(index).toggleCompleted();
 	}
 

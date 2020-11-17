@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.Test;
 
-import static org.junit,jupiter.api.Assertions.*;
+import static org.junit.upiter.api.Assertions.*;
 
 public class TaskListTest {
 	@Test

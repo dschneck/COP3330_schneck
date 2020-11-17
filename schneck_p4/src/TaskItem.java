@@ -8,7 +8,7 @@ public class TaskItem {
 		this.title = title;
 		this.description = description;
 		
-		this.date[] = new int[3];
+		this.date = new int[3];
 
 		this.date[0] = date[0]; //month
 		this.date[1] = date[1]; //day
@@ -23,12 +23,12 @@ public class TaskItem {
 	public String getDescription() {return this.description;}
 	public boolean isCompleted() {return this.completed;}
 
-	public void printDate() {System.out.print("[" + Integer.toString(year) + "-" + Integer.toString(month) + "-" + Integer.toString(day) + "]");}
+	public void printDate() {System.out.print("[" + Integer.toString(date[2]) + "-" + Integer.toString(date[0]) + "-" + Integer.toString(date[1]) + "]");}
 
 	// Setters
-	public void setTitle(String newTitle) {} // TODO
-	public void setDescription (String newDescription) {} // TODO
-	public void setDate(int newMonth, int newDay, int newYear) {} // TODO
+	public void setTitle(String newTitle) {this.title = newTitle; }
+	public void setDescription (String newDescription) {this.description = newDescription;}
+	public void setDate(int newDate[]) {for (int i = 0; i < 3; i++) this.date[i] = date[i];}
 	public void toggleCompleted() {this.completed = !this.completed;}
 
 }	
