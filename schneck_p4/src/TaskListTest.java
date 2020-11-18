@@ -1,11 +1,6 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-// I think that these are more straightforward calls to methods
-// in the TaskList
-
-
-// invalid index
 public class TaskListTest {
 	@Test
 	public void addingTaskItemsIncreasesSize() {
@@ -200,7 +195,5 @@ public class TaskListTest {
 
 		assertThrows(IndexOutOfBoundsException.class, () -> taskList.toggleCompleted(1));
 	}
-
-
 
 }

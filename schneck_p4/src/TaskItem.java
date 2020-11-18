@@ -1,5 +1,3 @@
-import org.junit.jupiter.api.function.Executable;
-
 import static java.lang.Math.log10;
 
 public class TaskItem {
