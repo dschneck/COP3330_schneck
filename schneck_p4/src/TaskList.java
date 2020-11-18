@@ -1,4 +1,6 @@
-import java.util.ArrayList; 
+import org.junit.jupiter.api.function.Executable;
+
+import java.util.ArrayList;
 
 public class TaskList {
 	public ArrayList<TaskItem> tasks;
@@ -8,19 +10,43 @@ public class TaskList {
 
 	public int getSize() {return tasks.size();}
 
-	public void addTask(String description, String title, int [] date) { 
-		TaskItem task = new TaskItem(description, title, date);
-		tasks.add(task);
+	public void addTask(String title, String description, int [] date) {
+		// TaskItem task = new TaskItem(title, description, date);
+		tasks.add(new TaskItem(title, description, date));
 	}
 
 	public void addTaskFromFile(TaskItem task) {tasks.add(task);}
 	
-	public void removeTask(int index) {tasks.remove(index);}
+	public void removeTask(int index) {
+		if (isValidIndex(index)) {
+			tasks.remove(index);
+		} else {
+			throw new IndexOutOfBoundsException("You must pick a task index that is in the list\n");
+		}
+	}
 
-	public void editTask(int index, String title, String description, int [] date) { //index, title, description, date
-		tasks.get(index).setDate(date);
-		tasks.get(index).setTitle(title);
-		tasks.get(index).setDescription(description);
+	public void editTask(int index, String title, String description, int [] date) {
+		if (isValidIndex(index)) { // TODO might be able to replace tasks.get(index) with task
+			TaskItem task = tasks.get(index);
+
+			if (task.isValidDate(date)) {
+				tasks.get(index).setDate(date);
+			} else {
+				throw new InvalidDueDateException("Please enter the date in the following format: (YYYY-MM-DD)\n");
+			}
+
+			if (task.isValidTitle(title)) {
+				tasks.get(index).setTitle(title);
+			} else {
+				throw new InvalidTitleException("The title must have at least one character\n");
+			}
+
+			tasks.get(index).setDescription(description);
+
+		} else {
+			throw new IndexOutOfBoundsException("You must pick a task index that is in the list\n");
+		}
+
 	}
 	
 	public void printList() {
@@ -36,6 +62,7 @@ public class TaskList {
 		}
 		System.out.print("\n");
 	}
+
 	public void printCompleted() {
 		System.out.print("\n");
 		for (int i = 0; i < tasks.size(); i++) {
@@ -60,18 +87,55 @@ public class TaskList {
 		System.out.print("\n");
 	}
 
-	public String [] getTask(int index) {
-		String [] task = new String[4];
+	public String [] getTaskString(int index) {
+		if (isValidIndex(index)) {
+			String [] task = new String[4];
 
-		task[0] = tasks.get(index).getDateString(); //tasks.get(index).getTitle();
-		task[1] = tasks.get(index).getTitle(); //tasks.get(index).getDescription();
-		task[2] = tasks.get(index).getDescription(); //tasks.get(index).getDateString();
-		task[3] = Boolean.toString(tasks.get(index).isCompleted());
+			task[0] = tasks.get(index).getDateString(); //tasks.get(index).getTitle();
+			task[1] = tasks.get(index).getTitle(); //tasks.get(index).getDescription();
+			task[2] = tasks.get(index).getDescription(); //tasks.get(index).getDateString();
+			task[3] = Boolean.toString(tasks.get(index).isCompleted());
 
-		return task;
+			return task;
+		} else {
+			throw new IndexOutOfBoundsException("You must pick a task index that is in the list\n");
+		}
+
 		//return tasks.get(index).getTaskString(index);
 	}
 
-	public void toggleCompleted(int index) {tasks.get(index).toggleCompleted();}
+	public int [] getTaskDate(int index) {
+		if (isValidIndex(index)) {
+			TaskItem task = tasks.get(index);
+			return task.getDate();
+		} else {
+			throw new IndexOutOfBoundsException("You must pick a task index that is in the list\n");
+		}
 
+		//return tasks.get(index).getTaskString(index);
+	}
+
+
+
+	public void toggleCompleted(int index) {
+		if (isValidIndex(index)) {
+			tasks.get(index).toggleCompleted();
+		} else {
+			throw new IndexOutOfBoundsException("You must pick a task index that is in the list\n");
+		}
+
+
+	}
+
+	// Validate input
+	public boolean isValidIndex(int index) {
+		return !(index < 0 || index > this.getSize());
+	}
+
+}
+
+class InvalidIndexException extends IllegalArgumentException {
+	public InvalidIndexException(String msg) {
+		super(msg);
+	}
 }
