@@ -115,7 +115,25 @@ public class TaskList {
 		//return tasks.get(index).getTaskString(index);
 	}
 
+	public String getTaskTitle(int index) {
+		if (isValidIndex(index)) {
+			TaskItem task = tasks.get(index);
+			return task.getTitle();
+		} else {
+			throw new IndexOutOfBoundsException("You must pick a task index that is in the list\n");
+		}
 
+	}
+
+	public String getTaskDescription(int index) {
+		if (isValidIndex(index)) {
+			TaskItem task = tasks.get(index);
+			return task.getDescription();
+		} else {
+			throw new IndexOutOfBoundsException("You must pick a task index that is in the list\n");
+		}
+
+	}
 
 	public void toggleCompleted(int index) {
 		if (isValidIndex(index)) {
