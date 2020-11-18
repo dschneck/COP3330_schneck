@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 
 public class TaskList {
@@ -10,7 +9,6 @@ public class TaskList {
 	public int getSize() {return tasks.size();}
 
 	public void addTask(String title, String description, int [] date) {
-		// TaskItem task = new TaskItem(title, description, date);
 		tasks.add(new TaskItem(title, description, date));
 	}
 
@@ -49,6 +47,7 @@ public class TaskList {
 	}
 	
 	public void printList() {
+		System.out.print("\n");
 		for (int i = 0; i < tasks.size(); i++) {
 			if ((tasks.get(i).isCompleted())) {
 				System.out.print("\n"+ i + ") *** ");
@@ -57,7 +56,7 @@ public class TaskList {
 			}
 
 			tasks.get(i).printDate();
-			System.out.print(" " + tasks.get(i).getTitle() + " " + tasks.get(i).getDescription() + "\n");
+			System.out.print(" " + tasks.get(i).getTitle() + ": "  + tasks.get(i).getDescription() + "\n");
 		}
 		System.out.print("\n");
 	}

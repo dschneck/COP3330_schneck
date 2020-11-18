@@ -28,16 +28,16 @@ public class TaskListTest {
 	}
 
 
-	/*
+
 	@Test
 	public void editingTaskItemChangesValues() {
 		TaskList taskList = new TaskList();
 		taskList.addTask("COP 3330", "A very fun and interesting class", new int[]{2020, 12, 20});
 		taskList.editTask(0,"COP 3330" , "It's cool!", new int[]{2020, 12, 20} );
 
-		assertEquals("A very fun and interesting class", taskList.tasks.get(0).getDescription());
+		assertNotEquals("A very fun and interesting class", taskList.tasks.get(0).getDescription());
 	}
-	*/
+
 
 	@Test
 	public void editingTaskItemDescriptionChangesValue() {

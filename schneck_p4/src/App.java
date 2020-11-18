@@ -14,7 +14,7 @@ public class App {
 	static int [] date;
 	static String filename = new String(), title = new String(), description = new String();
 
-	static boolean mainIsFinished = false, validTask = false;
+	static boolean mainIsFinished = true, validTask = false;
 
 	public static void main(String[] args) {
 		MainMenu();
@@ -137,52 +137,38 @@ public class App {
 
 	// Main drivers
 	private static void MainMenu() {
-		do {
 			try {
 				printMainMenu();
 				mainMenuInput = scanner.nextInt();
 				scanner.nextLine();
-				mainIsFinished = true;
 
-
-				while (mainMenuInput != 3) {
-					mainIsFinished = false;
 					switch (mainMenuInput) {
 						case 1:
 							System.out.println("\nnew task list has been created\n\n");
 							ListOperationsMenu();
-							//printMainMenu();
+							MainMenu();
 							break;
-
 						case 2:
 							System.out.print("Enter the filename to load: ");
 							filename = scanner.nextLine();
 							loadFile(filename);
 							System.out.println(filename + " has been loaded\n");
+							ListOperationsMenu();
+							MainMenu();
 							break;
 						default:
 							System.out.println("Please use a number from 1 to 3 (inclusive)\n");
 							break;
 						case 3:
-							mainIsFinished = true;
 							break;
 					}
 
-					if (mainMenuInput == 2) {
-						mainMenuInput = 1;
-						break;
-					}
-					else mainMenuInput = scanner.nextInt();
-
-				}
 			} catch (InputMismatchException e) {
 				System.err.println(e + "\n");
 				System.out.println("Please use a number from 1 to 3 (inclusive)\n");
 
 				scanner.nextLine();
 			}
-
-		} while(!mainIsFinished);
 	}
 
 	private static void ListOperationsMenu() {
@@ -219,19 +205,18 @@ public class App {
 
 				}
 
-				printListOperations();
-				ListOperationInput = scanner.nextInt();
-				scanner.nextLine();
+				ListOperationsMenu();
 			}
 
 		} catch (Exception e) {
 			System.err.println(e + "\n");
-			System.err.println("Input was not an integer from 1 to 7.\n Try again.\n");
+			System.err.println("Input was not an integer from 1 to 8.\n Try again.\n");
 		}
 	}
 
 	// Methods called from switch statement
 	private static void ViewList() {
+		System.out.println("Current Tasks\n--------");
 		taskList.printList();
 	}
 
@@ -260,23 +245,33 @@ public class App {
 		}
 	}
 
-	private static void EditItem() {
-		System.out.println("Which task will you edit? ");
-		index = scanner.nextInt();
+	private static void EditItem() { // needs to check for index
+		ViewList();
 
-		System.out.println("Enter a new title for task " + ": ");
+		System.out.println("Which task will you edit?");
+		System.out.print("> ");
+		index = scanner.nextInt();
+		scanner.nextLine();
+
+		System.out.println("Enter a new title for task " + Integer.toString(index) + ": ");
+		System.out.print("> ");
 		title = scanner.nextLine();
 
-		System.out.println("Enter a new description for task " + ": ");
+		System.out.println("Enter a new description for task " + Integer.toString(index) + ": ");
+		System.out.print("> ");
 		description = scanner.nextLine();
 
-		System.out.println("Enter a new task due date (YYYY-MM-DD) for task " + ": ");
+		System.out.println("Enter a new task due date (YYYY-MM-DD) for task " + Integer.toString(index) + ": ");
+		System.out.print("> ");
 		date = readDate(scanner);
 		taskList.editTask(index, title, description, date);
 	}
 
 	private static void RemoveItem() {
-		System.out.println("Which task will you remove? ");
+		ViewList();
+
+		System.out.println("Which task will you remove?");
+		System.out.print("> ");
 		index = scanner.nextInt();
 
 		taskList.removeTask(index);
@@ -286,7 +281,8 @@ public class App {
 	private static void MarkItemComplete() {
 		System.out.println("Uncompleted Tasks\n--------");
 		taskList.printUncompleted();
-		System.out.println("Which task will you mark as completed? ");
+		System.out.println("Which task will you mark as completed?");
+		System.out.print("> ");
 
 		index = scanner.nextInt();
 		taskList.toggleCompleted(index);
@@ -297,13 +293,15 @@ public class App {
 		System.out.println("Completed Tasks\n--------");
 		taskList.printCompleted();
 		System.out.println("Which task will you unmark as completed? ");
+		System.out.print("> ");
 
 		index = scanner.nextInt();
 		taskList.toggleCompleted(index);
 	}
 
 	private static void SaveCurrentList() {
-		System.out.println("Enter the filename to save as: ");
+		System.out.println("Enter the filename to save as:");
+		System.out.print("> ");
 		filename = scanner.nextLine();
 		saveFile(filename);
 		System.out.println(filename + " has been saved");
