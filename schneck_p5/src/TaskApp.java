@@ -14,8 +14,6 @@ public class TaskApp {
 	static int [] date;
 	static String filename = new String(), title = new String(), description = new String();
 
-	static boolean mainIsFinished = true, validTask = false;
-
 	public static void TaskMain() {
 		MainMenu();
 	}
@@ -166,8 +164,9 @@ public class TaskApp {
 			} catch (InputMismatchException e) {
 				System.err.println(e + "\n");
 				System.out.println("Please use a number from 1 to 3 (inclusive)\n");
-
+				scanner.reset();
 				scanner.nextLine();
+				MainMenu();
 			}
 	}
 

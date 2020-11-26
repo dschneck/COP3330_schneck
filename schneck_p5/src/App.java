@@ -10,10 +10,9 @@ public class App {
 
 
 	}
-	
 
 	private static void ApplicationOptions()  {
-		System.out.println("Select Your Application\n1) task list\n2) contact list\n3) exit");
+		System.out.println("Select Your Application\n-------\n1) task list\n2) contact list\n3) exit");
 
 		try {
 			int choice = scanner.nextInt();
@@ -33,7 +32,10 @@ public class App {
 
 		} catch(InputMismatchException ie) {
 			System.err.println(ie);
-			System.out.println("Please choose a number from 1 to 3 (inclusive)");
+			System.out.println("WARNING: Please choose a number from 1 to 3 (inclusive)\n");
+			scanner.reset();
+			scanner.nextLine();
+			ApplicationOptions();
 		}
 
 	}
