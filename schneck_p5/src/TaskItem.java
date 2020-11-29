@@ -3,23 +3,20 @@ import static java.lang.Math.log10;
 public class TaskItem {
 	private String title;
 	private String description;
-	private int[] date;
+	//private int[] date;
+	private String date;
 	private boolean completed;
 
 	// Constructor
-	public TaskItem(String title, String description, int[] date) {
+	public TaskItem(String title, String description, String date) {
 
 		if (isValidTitle(title)) {
 			this.title = title;
 		} else {
 			throw new InvalidTitleException("The title must have at least one character\n");
 		}
-		if (isValidDate(date)) {
-			this.date = new int[3];
-
-			this.date[0] = date[0]; //year
-			this.date[1] = date[1]; //month
-			this.date[2] = date[2]; //day
+		if (isValidDate(dateToIntArray(date))) {
+			this.date = date;
 		} else {
 			throw new InvalidDueDateException("Please enter the date in the following format: (YYYY-MM-DD)\n");
 		}
@@ -38,18 +35,10 @@ public class TaskItem {
 		return this.description;
 	}
 
-	public String getDateString() {
-		return Integer.toString(date[0]) + "-" + Integer.toString(date[1]) + "-" + Integer.toString(date[2]);
-	}
-
-	public int [] getDate() {return this.date;}
+	public String getDate() {return this.date;}
 
 	public boolean isCompleted() {
 		return this.completed;
-	}
-
-	public void printDate() {
-		System.out.print("[" + Integer.toString(date[0]) + "-" + Integer.toString(date[1]) + "-" + Integer.toString(date[2]) + "]");
 	}
 
 	// Setters
@@ -66,11 +55,11 @@ public class TaskItem {
 		this.description = newDescription;
 	}
 
-	public void setDate(int[] newDate) {
-		if (isValidDate(newDate)){
-			for (int i = 0; i < 3; i++) this.date[i] = newDate[i];
+	public void setDate(String newDate) {
+		if (isValidDate(dateToIntArray(newDate))) {
+			this.date = newDate;
 		} else {
-			throw new InvalidDueDateException("Please enter the date in the following format: (YYYY-MM-DD)\n");
+			throw new InvalidDueDateException("WARNING: Please give the date in the following format: (YYYY-MM-DD)\n");
 		}
 	}
 
@@ -79,6 +68,16 @@ public class TaskItem {
 	}
 
 	// Validate inputs
+	public static int [] dateToIntArray(String date) {
+		int [] dateA = new int[3];
+		String[] values = date.split("-");
+
+		dateA[0] = Integer.parseInt(values[0]);
+		dateA[1] = Integer.parseInt(values[1]);
+		dateA[2] = Integer.parseInt(values[2]);
+
+		return dateA;
+	}
 	public boolean isValidDate(int[] date) {
 		boolean year, month, day;
 

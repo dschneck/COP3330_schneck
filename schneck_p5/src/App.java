@@ -21,9 +21,11 @@ public class App {
 			switch(choice) {
 				case 1:
 					TaskApp.TaskMain();
+					ApplicationOptions();
 					break;
 				case 2:
 					//ContactApp.ContactMain();
+					ApplicationOptions();
 					break;
 				case 3:
 					break;

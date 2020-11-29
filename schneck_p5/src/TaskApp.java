@@ -11,8 +11,7 @@ public class TaskApp {
 	public static TaskList taskList = new TaskList();
 
 	static int ListOperationInput, mainMenuInput, index;
-	static int [] date;
-	static String filename = new String(), title = new String(), description = new String();
+	static String filename = new String(), title = new String(), description = new String(), date = new String();
 
 	public static void TaskMain() {
 		MainMenu();
@@ -40,17 +39,10 @@ public class TaskApp {
 				input.nextLine();
 
 				for (int i = 0; i < numTask; i++) {
-					String title, description;
-					int [] date = new int [3];
+					String title, description, date;
 					boolean isComplete;
 
-					String line = input.nextLine();
-					String[] values = line.split("-");
-
-					date[0] = Integer.parseInt(values[0]);
-					date[1] = Integer.parseInt(values[1]);
-					date[2] = Integer.parseInt(values[2]);
-
+					date = input.nextLine();
 					title = input.nextLine();
 					description = input.nextLine();
 					isComplete = Boolean.parseBoolean(input.nextLine());
@@ -237,9 +229,9 @@ public class TaskApp {
 
 		try {
 			System.out.print("Task due date (YYYY-MM-DD): ");
-			date = readDate(scanner);
+			date = scanner.nextLine();
 			taskList.addTask(title, description, date);
-		} catch (Exception e) {
+		} catch (InputMismatchException e) {
 			System.err.println((e));
 		}
 	}
@@ -262,7 +254,7 @@ public class TaskApp {
 
 		System.out.println("Enter a new task due date (YYYY-MM-DD) for task " + Integer.toString(index) + ": ");
 		System.out.print("> ");
-		date = readDate(scanner);
+		date = scanner.nextLine();
 		taskList.editTask(index, title, description, date);
 	}
 
@@ -302,7 +294,7 @@ public class TaskApp {
 		System.out.println("Enter the filename to save as:");
 		System.out.print("> ");
 		filename = scanner.nextLine();
-		saveFile(filename);
+		taskList.saveToFile(filename);
 		System.out.println(filename + " has been saved");
 	}
 }
