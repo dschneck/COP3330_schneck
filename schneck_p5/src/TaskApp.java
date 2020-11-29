@@ -190,8 +190,7 @@ public class TaskApp {
 					case 7: // Save the current list
 						SaveCurrentList();
 						break;
-					default: // Error
-						System.out.println("Please use a number 1 to 8 (inclusive)");
+					case 8: // Quit to main menu
 						break;
 
 				}

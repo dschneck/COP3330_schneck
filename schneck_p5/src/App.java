@@ -3,13 +3,8 @@ import java.util.Scanner;
 
 public class App {
 	public static Scanner scanner = new Scanner(System.in);
-	public static void main(String [] args) {
 
-		ApplicationOptions();
-
-
-
-	}
+	public static void main(String [] args) { ApplicationOptions(); }
 
 	private static void ApplicationOptions()  {
 		System.out.println("Select Your Application\n-------\n1) task list\n2) contact list\n3) exit");
@@ -24,7 +19,7 @@ public class App {
 					ApplicationOptions();
 					break;
 				case 2:
-					//ContactApp.ContactMain();
+					ContactApp.ContactMain();
 					ApplicationOptions();
 					break;
 				case 3:
