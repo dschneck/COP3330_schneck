@@ -181,7 +181,7 @@ public class ContactApp {
         System.out.println(filename + " has been saved");
     }
 
-    private static void loadFile(String filename) {
+    private static void loadFile(String filename) { // make this just straight up addContact()
         URL path = App.class.getResource(filename);
         File file = new File(path.getFile());
         boolean validFile = false;
@@ -192,18 +192,17 @@ public class ContactApp {
                 input.nextLine();
 
                 for (int i = 0; i < numTask; i++) {
-                    String title, description, date;
+                    String firstName, lastName, phoneNumber, emailAddress;
                     boolean isComplete;
 
-                    date = input.nextLine();
-                    title = input.nextLine();
-                    description = input.nextLine();
-                    isComplete = Boolean.parseBoolean(input.nextLine());
+                    firstName = input.nextLine();
+                    lastName = input.nextLine();
+                    phoneNumber = input.nextLine();
+                    emailAddress = input.nextLine();
 
-                    TaskItem task = new TaskItem(title, description, date);
-                    if (isComplete) task.toggleCompleted();
+                    ContactItem contact = new ContactItem(firstName, lastName, phoneNumber, emailAddress);
 
-                    contactList.addTaskFromFile(task);
+                    contactList.addContactFromFile(contact);
 
                     input.nextLine();
                 }
