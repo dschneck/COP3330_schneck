@@ -14,8 +14,7 @@ public class ContactApp {
 
     public static void ContactMain() { MainMenu(); }
 
-
-    public static void MainMenu() {
+    private static void MainMenu() {
         try {
             printMainMenu();
             mainMenuInput = scanner.nextInt();
@@ -23,7 +22,7 @@ public class ContactApp {
 
             switch (mainMenuInput) {
                 case 1:
-                    System.out.println("\nnew contact list has been created\n\n");
+                    System.out.println("\nnew contact list has been created\n");
                     ListOperationsMenu();
                     MainMenu();
                     break;
@@ -50,10 +49,12 @@ public class ContactApp {
         }
     }
 
+    /* Now in the super
     private static void printMainMenu() {
-        System.out.println("Main Menu\n--------\n\n1) create a new list\n2) load an existing list\n3) quit\n");
+        System.out.println("\nMain Menu\n--------\n\n1) create a new list\n2) load an existing list\n3) quit\n");
         System.out.print("> ");
     }
+    */
 
     private static void ListOperationsMenu() {
         printListOperations();
@@ -78,6 +79,8 @@ public class ContactApp {
                         SaveCurrentList();
                         break;
                     case 6: // Quit to main menu
+                        ClearList();
+                        System.out.print("\n");
                         break;
 
                 }
@@ -97,7 +100,7 @@ public class ContactApp {
     }
 
     private static void ViewList() {
-        System.out.println("Current Tasks\n--------");
+        System.out.println("Current Contacts\n--------");
         contactList.printList();
     }
 
@@ -138,7 +141,7 @@ public class ContactApp {
     private static void EditItem() { // needs to check for index
         ViewList();
 
-        System.out.println("Which contact will you edit?");
+        System.out.println("\n\nWhich contact will you edit?");
         System.out.print("> ");
         index = scanner.nextInt();
         scanner.nextLine();
@@ -182,7 +185,7 @@ public class ContactApp {
     }
 
     private static void loadFile(String filename) { // make this just straight up addContact()
-        URL path = App.class.getResource(filename);
+        URL path = AppsDriver.class.getResource(filename);
         File file = new File(path.getFile());
         boolean validFile = false;
 
@@ -209,13 +212,21 @@ public class ContactApp {
 
                 validFile = true;
             } catch (FileNotFoundException e) {
-                System.err.println("\n" + e);
-                e.printStackTrace();
+                System.out.println("WARNING: The file did not exist / could not be loaded.\n");
+                ListOperationsMenu();
             }
         } while(!validFile);
     }
+    /* Now in the super
+    private static void ClearList() {
+        for (int i = 0; i < contactList.getSize(); i++) {
+            contactList.removeContact(i);
+        }
+    }
+    */
 
-
+// item name
+// app name
 
 
 

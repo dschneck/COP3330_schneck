@@ -1,39 +1,29 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class App {
-	public static Scanner scanner = new Scanner(System.in);
+public interface App{
+    // Fields
+    //public String appName;
+    //public T list;
+    //public static Scanner scanner ;//= new Scanner(System.in);
 
-	public static void main(String [] args) { ApplicationOptions(); }
+    // Methods
+    public void Start();
 
-	private static void ApplicationOptions()  {
-		System.out.println("Select Your Application\n-------\n1) task list\n2) contact list\n3) exit");
+    public void MainMenu();
 
-		try {
-			int choice = scanner.nextInt();
-			scanner.nextLine();
+    public void printMainMenu();
 
-			switch(choice) {
-				case 1:
-					TaskApp.TaskMain();
-					ApplicationOptions();
-					break;
-				case 2:
-					ContactApp.ContactMain();
-					ApplicationOptions();
-					break;
-				case 3:
-					break;
+    public void ListOperationsMenu();
 
-			}
+    public void printListOperationsMenu();
 
-		} catch(InputMismatchException ie) {
-			System.err.println(ie);
-			System.out.println("WARNING: Please choose a number from 1 to 3 (inclusive)\n");
-			scanner.reset();
-			scanner.nextLine();
-			ApplicationOptions();
-		}
+    // Operations
+    public void AddItem();
+    public void EditItem();
+    public void RemoveItem();
+    public void ViewList();
+    public void ClearList();
 
-	}
+    public void SaveCurrentList();
+    public void LoadFile(String filename);
 }

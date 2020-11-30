@@ -44,7 +44,7 @@ public class ContactList {
         System.out.print("\n");
 
         for (int i = 0; i < contacts.size(); i++) {
-            System.out.print(contacts.get(i).toString(i));
+            System.out.println(contacts.get(i).toString(i));
         }
 
         System.out.print("\n");

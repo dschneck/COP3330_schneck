@@ -29,7 +29,7 @@ public class TaskApp {
 	}
 
 	private static void loadFile(String filename) {
-		URL path = App.class.getResource(filename);
+		URL path = AppsDriver.class.getResource(filename);
 		File file = new File(path.getFile());
 		boolean validFile = false;
 
