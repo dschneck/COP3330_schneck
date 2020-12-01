@@ -55,45 +55,4 @@ public class TaskItemTest {
 		assertDoesNotThrow(() -> task.setTitle("OOP can be hard"));
 	}
 
-	// Added for the new assignment
-	/*
-	@Test
-	public void constructorFailsWIthInvalidDueDate() {}
-
-	@Test
-	public void constructorFailsWIthInvalidTitle() {}
-	
-	@Test
-	public void constructorSucceedsWithValidDueDate() {}
-
-	@Test
-	public void constructorSucceedsWithValidTitle() {}
-
-	@Test
-	public void editingDescriptionSucceedsWithExpectedValue() {}
-
-	@Test
-	public void editingDueDateFailsWithInvalidDateForm() {}
-
-	@Test
-	public void editingDueDateFailsWithInvalidYYYYMMDDFormat() {}
-
-	@Test
-	public void editingDueDateExceedsWithExpectedValue() {}
-
-	@Test
-	public void editingTitleFailsWithEmptyString() {}
-
-	@Test
-	public void editingTitlSucceedsWithExpectedValue() {}
-	*/
-
-
-
-
-
-
-
-
-
 }

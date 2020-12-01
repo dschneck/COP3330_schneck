@@ -12,9 +12,8 @@ public class ContactApp {
     static String filename = new String(), firstName = new String(),
             lastName = new String(), phoneNumber = new String(), emailAddress = new String();
 
-    public static void ContactMain() { MainMenu(); }
 
-    private static void MainMenu() {
+    public static void MainMenu() {
         try {
             printMainMenu();
             mainMenuInput = scanner.nextInt();
@@ -49,12 +48,10 @@ public class ContactApp {
         }
     }
 
-    /* Now in the super
     private static void printMainMenu() {
         System.out.println("\nMain Menu\n--------\n\n1) create a new list\n2) load an existing list\n3) quit\n");
         System.out.print("> ");
     }
-    */
 
     private static void ListOperationsMenu() {
         printListOperations();
@@ -131,7 +128,7 @@ public class ContactApp {
             System.out.print("Email address (x@y.z): ");
             emailAddress = scanner.nextLine();
 
-            contactList.addContact(firstName, lastName, phoneNumber, emailAddress);
+            contactList.addItem(new ContactItem(firstName, lastName, phoneNumber, emailAddress));
 
         } catch (InputMismatchException e) {
             e.printStackTrace();
@@ -161,7 +158,7 @@ public class ContactApp {
         System.out.println("Enter a new last name for contact" + Integer.toString(index) + ": ");
         System.out.print("> ");
         emailAddress = scanner.nextLine();
-        contactList.editContact(index, firstName, lastName, phoneNumber, emailAddress);
+        contactList.editItem(index, firstName, lastName, phoneNumber, emailAddress);
     }
 
     private static void RemoveItem() {
@@ -172,8 +169,14 @@ public class ContactApp {
         index = scanner.nextInt();
         scanner.nextLine();
 
-        contactList.removeContact(index);
+        contactList.removeItem(index);
 
+    }
+
+    private static void ClearList() {
+        for (int i = 0; i < contactList.getSize(); i++) {
+            contactList.removeItem(i);
+        }
     }
 
     private static void SaveCurrentList() {
@@ -205,7 +208,7 @@ public class ContactApp {
 
                     ContactItem contact = new ContactItem(firstName, lastName, phoneNumber, emailAddress);
 
-                    contactList.addContactFromFile(contact);
+                    contactList.addItemFromFile(contact);
 
                     input.nextLine();
                 }
@@ -217,26 +220,6 @@ public class ContactApp {
             }
         } while(!validFile);
     }
-    /* Now in the super
-    private static void ClearList() {
-        for (int i = 0; i < contactList.getSize(); i++) {
-            contactList.removeContact(i);
-        }
-    }
-    */
-
-// item name
-// app name
-
-
-
-
-
-
-
-
-
-
 
 
 

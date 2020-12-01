@@ -7,7 +7,7 @@ public class ContactListTest {
 		ContactList list = new ContactList();
 
 		int initialSize = list.getSize();
-		list.addContact("David", "Schneck", "123-345-6789", "david.schneck@Knights.ucf.edu");
+		list.addItem(new ContactItem("David", "Schneck", "123-345-6789", "david.schneck@Knights.ucf.edu"));
 
 		assertNotEquals(initialSize, list.getSize());
 	}
@@ -15,50 +15,50 @@ public class ContactListTest {
 	@Test
 	public void editingItemsFailsWithAllBlankValues() {
 		ContactList list= new ContactList();
-		list.addContact("David", "Schneck", "123-345-6789", "david.schneck@Knights.ucf.edu");
+		list.addItem(new ContactItem("David", "Schneck", "123-345-6789", "david.schneck@Knights.ucf.edu"));
 
-		assertThrows(ItemAllBlankException.class, () -> list.editContact(0, "", "", "", ""));
+		assertThrows(ItemAllBlankException.class, () -> list.editItem(0, "", "", "", ""));
 
 	}
 
 	@Test
 	public void editingItemsFailsWithInvalidIndex() {
 		ContactList list = new ContactList();
-		list.addContact("David", "Schneck", "123-345-6789", "david.schneck@Knights.ucf.edu");
+		list.addItem(new ContactItem("David", "Schneck", "123-345-6789", "david.schneck@Knights.ucf.edu"));
 
-		assertThrows(IndexOutOfBoundsException.class, () -> list.editContact(1, "Ehrlich", "Bachman", "123-456-6789", "ehrnoc@hooli.com"));
+		assertThrows(IndexOutOfBoundsException.class, () -> list.editItem(1, "Ehrlich", "Bachman", "123-456-6789", "ehrnoc@hooli.com"));
 	}
 
 	@Test
 	public void editingSucceedsWithBlankFirstName()  {
 		ContactList list = new ContactList();
-		list.addContact("David", "Schneck", "123-345-6789", "david.schneck@Knights.ucf.edu");
+		list.addItem(new ContactItem("David", "Schneck", "123-345-6789", "david.schneck@Knights.ucf.edu"));
 
-		assertDoesNotThrow(() -> list.editContact(0, "", "Bachman", "123-456-6789", "ehrnoc@hooli.com"));
+		assertDoesNotThrow(() -> list.editItem(0, "", "Bachman", "123-456-6789", "ehrnoc@hooli.com"));
 	}
 
 	@Test
 	public void editingSucceedsWithBlankLastName() {
 		ContactList list = new ContactList();
-		list.addContact("David", "Schneck", "123-345-6789", "david.schneck@Knights.ucf.edu");
+		list.addItem(new ContactItem("David", "Schneck", "123-345-6789", "david.schneck@Knights.ucf.edu"));
 
-		assertDoesNotThrow(() -> list.editContact(0, "Ehrlich", "", "123-456-6789", "ehrnoc@hooli.com"));
+		assertDoesNotThrow(() -> list.editItem(0, "Ehrlich", "", "123-456-6789", "ehrnoc@hooli.com"));
 	}
 
 	@Test
 	public void editingSucceedsWithBlankPhone() {
 		ContactList list = new ContactList();
-		list.addContact("David", "Schneck", "123-345-6789", "david.schneck@Knights.ucf.edu");
+		list.addItem(new ContactItem("David", "Schneck", "123-345-6789", "david.schneck@Knights.ucf.edu"));
 
-		assertDoesNotThrow(() -> list.editContact(0, "Ehrlich", "Bachman", "", "ehrnoc@hooli.com"));
+		assertDoesNotThrow(() -> list.editItem(0, "Ehrlich", "Bachman", "", "ehrnoc@hooli.com"));
 	}
 
 	@Test
 	public void editingSucceedsWithNonBlankValues() {
 		ContactList list = new ContactList();
-		list.addContact("David", "Schneck", "123-345-6789", "david.schneck@Knights.ucf.edu");
+		list.addItem(new ContactItem("David", "Schneck", "123-345-6789", "david.schneck@Knights.ucf.edu"));
 
-		assertDoesNotThrow(() -> list.editContact(0, "Ehrlich", "Bachman", "123-456-6789", "ehrnoc@hooli.com"));
+		assertDoesNotThrow(() -> list.editItem(0, "Ehrlich", "Bachman", "123-456-6789", "ehrnoc@hooli.com"));
 	}
 	
 	@Test
@@ -71,10 +71,10 @@ public class ContactListTest {
 	@Test
 	public void removingItemsDecreasesSize() {
 		ContactList list = new ContactList();
-		list.addContact("David", "Schneck", "123-345-6789", "david.schneck@Knights.ucf.edu");
+		list.addItem(new ContactItem("David", "Schneck", "123-345-6789", "david.schneck@Knights.ucf.edu"));
 
 		int sizeOfOne = list.getSize();
-		list.removeContact(0);
+		list.removeItem(0);
 
 		assertNotEquals(sizeOfOne, list.getSize());
 	}
@@ -82,9 +82,9 @@ public class ContactListTest {
 	@Test
 	public void removingItemsFailsWithInvalidIndex () {
 		ContactList list = new ContactList();
-		list.addContact("David", "Schneck", "123-345-6789", "david.schneck@Knights.ucf.edu");
+		list.addItem(new ContactItem("David", "Schneck", "123-345-6789", "david.schneck@Knights.ucf.edu"));
 
-		assertThrows(IndexOutOfBoundsException.class, () -> list.removeContact(1));
+		assertThrows(IndexOutOfBoundsException.class, () -> list.removeItem(1));
 	}
 
 	//@Test

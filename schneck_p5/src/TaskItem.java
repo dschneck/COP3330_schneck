@@ -1,14 +1,16 @@
 import static java.lang.Math.log10;
 
-public class TaskItem {
+public class TaskItem extends Item {
+
+	// Fields
 	private String title;
 	private String description;
-	//private int[] date;
 	private String date;
 	private boolean completed;
 
 	// Constructor
 	public TaskItem(String title, String description, String date) {
+		super("Task");
 
 		if (isValidTitle(title)) {
 			this.title = title;
@@ -24,6 +26,7 @@ public class TaskItem {
 		this.description = description;
 
 		this.completed = false;
+
 	}
 
 	// Getters

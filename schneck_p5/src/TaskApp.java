@@ -18,149 +18,46 @@ public class TaskApp {
 	}
 
 	// Helper functions
+	private static void MainMenu() {
+		try {
+			printMainMenu();
+			mainMenuInput = scanner.nextInt();
+			scanner.nextLine();
+
+			switch (mainMenuInput) {
+				case 1:
+					System.out.println("\nnew task list has been created\n\n");
+					ListOperationsMenu();
+					MainMenu();
+					break;
+				case 2:
+					System.out.print("Enter the filename to load: ");
+					filename = scanner.nextLine();
+					loadFile(filename);
+					System.out.println(filename + " has been loaded\n");
+					ListOperationsMenu();
+					MainMenu();
+					break;
+				default:
+					System.out.println("Please use a number from 1 to 3 (inclusive)\n");
+					break;
+				case 3:
+					break;
+			}
+
+		} catch (InputMismatchException e) {
+			System.err.println(e + "\n");
+			System.out.println("Please use a number from 1 to 3 (inclusive)\n");
+			scanner.reset();
+			scanner.nextLine();
+			MainMenu();
+		}
+	}
+
 	private static void printMainMenu() { 
 		System.out.println("Main Menu\n--------\n\n1) create a new list\n2) load an existing list\n3) quit\n");
 		System.out.print("> ");
 		}
-
-	private static void printListOperations() {
-		System.out.println("\nList Operations Task\n--------\n\n1) view the list\n2) add an item \n3) edit an item \n4) remove item\n5) mark an item as completed\n6) unmark an item as completed\n7) save the current list\n8) quit to the main menu\n");
-		System.out.print("> ");
-	}
-
-	private static void loadFile(String filename) {
-		URL path = AppsDriver.class.getResource(filename);
-		File file = new File(path.getFile());
-		boolean validFile = false;
-
-		do {
-			try (Scanner input = new Scanner(file)) {
-				int numTask = input.nextInt();
-				input.nextLine();
-
-				for (int i = 0; i < numTask; i++) {
-					String title, description, date;
-					boolean isComplete;
-
-					date = input.nextLine();
-					title = input.nextLine();
-					description = input.nextLine();
-					isComplete = Boolean.parseBoolean(input.nextLine());
-
-					TaskItem task = new TaskItem(title, description, date);
-					if (isComplete) task.toggleCompleted();
-
-					taskList.addTaskFromFile(task);
-
-					input.nextLine();
-				}
-
-				validFile = true;
-			} catch (FileNotFoundException e) {
-				System.err.println("\n" + e);
-				e.printStackTrace();
-			}
-		} while(!validFile);
-	}
-
-	private static void saveFile(String filename) {
-		File file = new File(filename);
-		boolean isValidFile = false;
-
-		do {
-			try {
-				FileWriter fileWriter = new FileWriter(file);
-
-				fileWriter.write(Integer.toString(taskList.getSize()) + "\n");
-				String[] ret;
-
-				for (int i = 0; i < taskList.getSize(); i++) {
-					ret = taskList.getTaskString(i);
-
-					fileWriter.write(ret[0] + "\n");
-					fileWriter.write(ret[1] + "\n");
-					fileWriter.write(ret[2] + "\n");
-					fileWriter.write(ret[3] + "\n");
-					fileWriter.write(" \n");
-
-				}
-
-				isValidFile = true;
-				fileWriter.close();
-
-			} catch (IOException e) {
-				System.err.println(e + "\n");
-				e.printStackTrace();
-			}
-		} while(!isValidFile);
-
-
-	}
-
-	private static int [] readDate(Scanner scan) {
-		int [] date = new int[3];
-		boolean isValidDate = false;
-		do {
-			try {
-				String line = scan.nextLine();
-				String[] values = line.split("-");
-
-				date[0] = Integer.parseInt(values[0]);
-				date[1] = Integer.parseInt(values[1]);
-				date[2] = Integer.parseInt(values[2]);
-
-				isValidDate = true;
-			} catch (InputMismatchException ie) {
-				ie.printStackTrace();
-				System.err.println(ie + "\n");
-			} catch(ArithmeticException ae) {
-				ae.printStackTrace();
-				System.err.println(ae + "\n");
-			}
-
-
-
-		} while(!isValidDate);
-
-		return date;
-	}
-
-	// Main drivers
-	private static void MainMenu() {
-			try {
-				printMainMenu();
-				mainMenuInput = scanner.nextInt();
-				scanner.nextLine();
-
-					switch (mainMenuInput) {
-						case 1:
-							System.out.println("\nnew task list has been created\n\n");
-							ListOperationsMenu();
-							MainMenu();
-							break;
-						case 2:
-							System.out.print("Enter the filename to load: ");
-							filename = scanner.nextLine();
-							loadFile(filename);
-							System.out.println(filename + " has been loaded\n");
-							ListOperationsMenu();
-							MainMenu();
-							break;
-						default:
-							System.out.println("Please use a number from 1 to 3 (inclusive)\n");
-							break;
-						case 3:
-							break;
-					}
-
-			} catch (InputMismatchException e) {
-				System.err.println(e + "\n");
-				System.out.println("Please use a number from 1 to 3 (inclusive)\n");
-				scanner.reset();
-				scanner.nextLine();
-				MainMenu();
-			}
-	}
 
 	private static void ListOperationsMenu() {
 		printListOperations();
@@ -191,6 +88,7 @@ public class TaskApp {
 						SaveCurrentList();
 						break;
 					case 8: // Quit to main menu
+						ClearList();
 						break;
 
 				}
@@ -202,6 +100,11 @@ public class TaskApp {
 			System.err.println(e + "\n");
 			System.err.println("Input was not an integer from 1 to 8.\n Try again.\n");
 		}
+	}
+
+	private static void printListOperations() {
+		System.out.println("\nList Operations Task\n--------\n\n1) view the list\n2) add an item \n3) edit an item \n4) remove item\n5) mark an item as completed\n6) unmark an item as completed\n7) save the current list\n8) quit to the main menu\n");
+		System.out.print("> ");
 	}
 
 	// Methods called from switch statement
@@ -229,7 +132,7 @@ public class TaskApp {
 		try {
 			System.out.print("Task due date (YYYY-MM-DD): ");
 			date = scanner.nextLine();
-			taskList.addTask(title, description, date);
+			taskList.addItem(new TaskItem (title, description, date));
 		} catch (InputMismatchException e) {
 			System.err.println((e));
 		}
@@ -264,8 +167,14 @@ public class TaskApp {
 		System.out.print("> ");
 		index = scanner.nextInt();
 
-		taskList.removeTask(index);
+		taskList.removeItem(index);
 
+	}
+
+	private static void ClearList() {
+		for (int i = 0; i < taskList.getSize(); i++) {
+			taskList.removeItem(i);
+		}
 	}
 
 	private static void MarkItemComplete() {
@@ -295,6 +204,41 @@ public class TaskApp {
 		filename = scanner.nextLine();
 		taskList.saveToFile(filename);
 		System.out.println(filename + " has been saved");
+	}
+
+	private static void loadFile(String filename) {
+		URL path = AppsDriver.class.getResource(filename);
+		File file = new File(path.getFile());
+		boolean validFile = false;
+
+		do {
+			try (Scanner input = new Scanner(file)) {
+				int numTask = input.nextInt();
+				input.nextLine();
+
+				for (int i = 0; i < numTask; i++) {
+					String title, description, date;
+					boolean isComplete;
+
+					date = input.nextLine();
+					title = input.nextLine();
+					description = input.nextLine();
+					isComplete = Boolean.parseBoolean(input.nextLine());
+
+					TaskItem task = new TaskItem(title, description, date);
+					if (isComplete) task.toggleCompleted();
+
+					taskList.addItemFromFile(task);
+
+					input.nextLine();
+				}
+
+				validFile = true;
+			} catch (FileNotFoundException e) {
+				System.err.println("\n" + e);
+				e.printStackTrace();
+			}
+		} while(!validFile);
 	}
 }
 

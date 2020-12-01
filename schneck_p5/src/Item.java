@@ -1,3 +1,10 @@
 public abstract class Item {
-    public String itemTypeName;
+    /* Fields */
+    public static String itemType;
+
+    /* Methods */
+    protected Item(String itemType) {
+        this.itemType = itemType;
+    }
+
 }

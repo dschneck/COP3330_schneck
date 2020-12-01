@@ -19,7 +19,7 @@ public class AppsDriver {
 					ApplicationOptions();
 					break;
 				case 2:
-					ContactApp.ContactMain();
+					ContactApp.MainMenu();
 					ApplicationOptions();
 					break;
 				case 3:

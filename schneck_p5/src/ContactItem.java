@@ -1,6 +1,4 @@
-import static java.lang.Math.log10;
-
-public class ContactItem {
+public class ContactItem extends Item {
 
 	// Fields
 	private String firstName;
@@ -11,7 +9,8 @@ public class ContactItem {
 
 	// Constructor
 	public ContactItem(String firstName, String lastName, String number, String emailAddress) {
-		
+		super("contact");
+
 		if (checkNumEmpty(firstName, lastName, number, emailAddress) < 4) {
 			this.firstName = firstName;
 			this.lastName = lastName;
@@ -29,13 +28,6 @@ public class ContactItem {
 	public String getPhoneNumber() {return this.phoneNumber;}
 	public String getEmailAddress() {return this.emailAddress;}
 
-	// Setters
-	//public void setFirstName(String name) {this.firstName = name;}
-	//public void setLastName(String name) {this.lastName = name;}
-	//public void setPhoneNumber(String number) {this.phoneNumber = number;}
-	//public void setEmailAddress(String email) {this.emailAddress = email;}
-
-
 	// Printers
 	//@Override
 	public String toString(int index) {
@@ -45,13 +37,13 @@ public class ContactItem {
 	}
 
 	// Helper methods
-	public static int checkNumEmpty(String fname, String lname, String number, String emailadd) {
+	public static int checkNumEmpty(String firstName, String lastName, String number, String emailAddress) {
 		int numEmpty = 0;
 
-		if (fname.isEmpty()) numEmpty++;
-		if (lname.isEmpty()) numEmpty++;
+		if (firstName.isEmpty()) numEmpty++;
+		if (lastName.isEmpty()) numEmpty++;
 		if (number.isEmpty()) numEmpty++;
-		if (emailadd.isEmpty()) numEmpty++;
+		if (emailAddress.isEmpty()) numEmpty++;
 
 		//if (Math.floor(log10(number + 1)) != 10 ) numEmpty++;
 
