@@ -21,11 +21,13 @@ public abstract class List <I extends Item> {
 
     public void addItemFromFile(I item) {list.add(item);}
 
+    public void clearList() {list.clear();}
+
     public void removeItem(int index) {
         if (isValidIndex(index)) {
             list.remove(index);
         } else {
-            throw new IndexOutOfBoundsException("You must pick a " + itemType +  "  index that is in the list\n");
+            throw new IndexOutOfBoundsException("You must pick a " + itemType +  " index that is in the list\n");
         }
     }
 

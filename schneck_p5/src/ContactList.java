@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class ContactList extends List {
     
@@ -27,7 +26,8 @@ public class ContactList extends List {
         System.out.print("\n");
 
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i).toString());
+            ContactItem item = (ContactItem) list.get(i);
+            System.out.println(item.toString(i));
         }
 
         System.out.print("\n");

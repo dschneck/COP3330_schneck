@@ -37,12 +37,12 @@ public class TaskList extends List {
 			TaskItem item = (TaskItem) list.get(i);
 
 			if (item.isCompleted()) {
-				System.out.print("\n"+ i + ") *** ");
+				System.out.print(i + ") *** ");
 			} else {
 				System.out.print(i + ") ");
 			}
 
-			System.out.print(item.getDate() + " " + item.getTitle() + " " + item.getDescription() + "\n");
+			System.out.print(item.getDate() + " " + item.getTitle() + ": " + item.getDescription() + "\n");
 		}
 		System.out.print("\n");
 	}
@@ -53,7 +53,7 @@ public class TaskList extends List {
 			TaskItem item = (TaskItem) list.get(i);
 
 			if (item.isCompleted()) {
-				System.out.print(i +") " + item.getDate() + " " + item.getTitle() + " " + item.getDescription() + "\n");
+				System.out.print(i +") " + item.getDate() + " " + item.getTitle() + ": " + item.getDescription() + "\n");
 			}
 		}
 		System.out.print("\n");
@@ -65,7 +65,7 @@ public class TaskList extends List {
 			TaskItem item = (TaskItem) list.get(i);
 
 			if (!item.isCompleted()) {
-				System.out.print(i +") " + item.getDate() + " " + item.getTitle() + " " + item.getDescription() + "\n");
+				System.out.print(i +") " + item.getDate() + " " + item.getTitle() + ": " + item.getDescription() + "\n");
 			}
 		}
 		System.out.print("\n");

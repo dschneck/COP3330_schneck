@@ -1,6 +1,0 @@
-1
-John 
-Doe
-555-123-1234
-unknown@cia.gov
- 

@@ -1,0 +1,26 @@
+5
+2020-12-01
+Complete Program
+Im very close
+false
+ 
+2020-11-29
+Finish watching tv
+im watching its always sunny
+false
+ 
+2080-08-30
+Go to sleep
+i do it everyday
+true
+ 
+2019-10-15
+random thing
+doesnt matter whAT
+false
+ 
+2020-12-10
+pass class
+might get a B
+false
+ 

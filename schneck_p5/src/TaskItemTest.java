@@ -6,7 +6,6 @@ public class TaskItemTest {
 
 	@Test
 	public void creatingTaskItemFailsWithInvalidDueDate() {
-		int [] InvalidDate = {1 , 20, 12};
 
 		assertThrows(InvalidDueDateException.class, () -> new TaskItem("Do homework", "OOP assignment","1-20-12"));
 	}
